@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href= "..//css/estilo314.CSS" media="screen" />
+</head>
+<body>
+  <div  class="cabeçalho">
+    <img src="../img/logo (1).png" width="130" height="80"  >
+    
+    
+    <a href="../../index.html"><button>Eventos</button></a>
+    <a href="../html/Cadastrardeevento.html"><button>cadastrar eventos</button></a>
+    <a href="../html/paginadeticket.html"><button>tickets</button></a>
+        
+        <div class ="container" style="width:100%;height: 1200px;">
+            <img src="../img/fundo.png"  width="100%" height="100%"  >
+            <div class="box">
+        
+                <form id="myForm">
+                    <label for="quantity">Quantidade</label>
+                    <input type="number" id="quantity" name="quantity">
+                    <br>
+                    <label for="price">Preço</label>
+                    <input type="number" id="price" name="price">
+                    <br>
+                    <label for="selectEvent">Selecionar Evento:</label>
+                    <select id="selectEvent" name="event">
+                      <!-- Aqui vamos gerar as opções dinamicamente -->
+                    </select>
+                    <br>
+                    <button type="submit">Salvar</button>
+                  </form>
+                
+                
+            </div>
+             
+            </div> 
+        
+            <div class="rodape">
+        
+        
+        
+            </div>
+    
+</body>
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+      // Recuperar o array de objetos do Local Storage
+      let eventos = JSON.parse(localStorage.getItem('eventos'));
+
+      // Verificar se o valor recuperado é válido
+      if (eventos && Array.isArray(eventos)) {
+        // O valor foi encontrado no Local Storage e é um array de objetos válido
+        // Agora você pode usar a variável "eventos" para trabalhar com os dados
+
+        // Criar as opções para a caixa de seleção
+        let selectElement = document.getElementById('selectEvent');
+        eventos.forEach(function(evento) {
+          let option = document.createElement('option');
+          option.value = evento.id;
+          option.textContent = evento.title;
+          selectElement.appendChild(option);
+        });
+      } else {
+        // O valor não foi encontrado no Local Storage ou não é um array de objetos válido
+        console.log('Nenhum evento encontrado no Local Storage.');
+
+      }
+    });
+
+    // Lógica para lidar com o envio do formulário
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio do formulário por padrão
+  
+    // Obter os valores dos inputs
+    let quantity = document.getElementById('quantity').value;
+    let price = document.getElementById('price').value;
+    let selectedEventId = document.getElementById('selectEvent').value;
+  
+    // Recuperar os dados existentes do Local Storage com a chave "tickets"
+    let existingTickets = JSON.parse(localStorage.getItem('tickets')) || [];
+  
+    // Criar um novo objeto para representar o ticket atual
+    let newTicket = {
+      id: selectedEventId,
+      price: parseFloat(price),
+      quantity: parseInt(quantity)
+    };
+  
+    // Adicionar o novo ticket ao array existente
+    existingTickets.push(newTicket);
+  
+    // Salvar os dados atualizados no Local Storage
+    localStorage.setItem('tickets', JSON.stringify(existingTickets));
+  
+    // Limpar os valores dos inputs
+    document.getElementById('quantity').value = '';
+    document.getElementById('price').value = '';
+  
+    console.log('Ticket salvo com sucesso!');
+    
+    });
+</script>
+</html>

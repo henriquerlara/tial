@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href= /assets/css/estilo314.css media="screen" />
+</head>
+<body onload="carousel()">
+    <div  class="cabeçalho">
+        <img src="/assets/img/logo (1).png" width="130" height="80"  >
+        
+        
+        <a href="/assets/html/teste.html"><button>Eventos</button></a>
+        <a href="/assets/html/Cadastrardeevento.html"><button>cadastrar eventos</button></a>
+        <a href="/assets/html/cadastroticket.html"><button>tickets</button></a>
+        <div class="introduction">
+          <h1>Bem-vindo ao E Ingressos - Compre Tickets e Promova Eventos!</h1>
+          <p>Encontre os melhores eventos e garanta seu lugar!</p>
+          <a href="/assets/html/Cadastrardeevento.html"class="button">Cadastre Seus Eventos</a>
+  
+          <div class="carousel" >
+              <img id="carousel-image" src="/assets/img/sertanejo.jpg" alt="Imagem do Carrossel">
+          </div>
+      </div>
+
+      <div class="stab">
+
+       
+          <button class="btnsearch">   </button>
+        </div>
+       
+        <div class="pesq123"></div>
+        
+    <div class ="container" style="width:100%;height: 100%;">
+     
+    
+    
+     
+    </div> 
+    <div class="rodape"><button id="limparLocalStorage">Limpar Local Storage</button></div>
+</body>
+
+<script>
+  
+
+
+
+function criarDivsObjetosLocalStorage() {
+  var objetosJSON = localStorage.getItem("eventos");
+  var objetos = JSON.parse(objetosJSON);
+
+  if (Array.isArray(objetos)) {
+    objetos.forEach(function(objeto, index) {
+      var divContainer = document.querySelector(".container");
+
+      var divBox2 = document.createElement("div");
+      divBox2.classList.add("box2");
+
+      var divAlvo = document.createElement("div");
+      divAlvo.classList.add("caixadeevento");
+
+      var divTituloEvento = document.createElement("div");
+      divTituloEvento.classList.add("tituloevento");
+      divTituloEvento.innerHTML = "<p>Título: " + objeto.title + "</p>";
+
+
+      var imgElement = document.createElement("img");
+      imgElement.src = "/assets/img/sertanejo.jpg";
+      imgElement.alt = "Imagem";
+    
+
+      
+
+      var divDesc = document.createElement("div");
+      divDesc.classList.add("desc");
+      divDesc.innerHTML = "<p>Descrição: " + objeto.description + "</p>";
+
+      var divInfo = document.createElement("div");
+      divInfo.classList.add("info");
+      divInfo.innerHTML = "<p>ID: " + objeto.id + "</p>";
+      divInfo.innerHTML += "<p>Gênero: " + objeto.genre + "</p>";
+      divInfo.innerHTML += "<p>Localização: " + objeto.location + "</p>";
+
+      var buttonElement = document.createElement("button");
+      buttonElement.textContent = "Comprar Tickets";
+      buttonElement.addEventListener("click", function() {
+        localStorage.setItem("numeroDiv", index + 1);
+        console.log("Número salvo no localStorage: " + (index + 1));
+        window.location.href = "/assets/html/paginaunica.html";
+      });
+      divAlvo.appendChild(divTituloEvento);
+      
+      divAlvo.appendChild(imgElement);
+      divAlvo.appendChild(divInfo);
+      divAlvo.appendChild(divDesc);
+      divAlvo.appendChild(buttonElement);
+      divBox2.appendChild(divAlvo);
+      divContainer.appendChild(divBox2);
+    });
+  }
+}
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+document.addEventListener("DOMContentLoaded", function() {
+  criarDivsObjetosLocalStorage();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var inputElement = document.querySelector(".pesquisar");
+  var buttonElement = document.querySelector(".btnsearch");
+
+  buttonElement.addEventListener("click", function() {
+    var inputValue =+ inputElement.value;
+    console.log("Conteúdo do input:", inputValue);
+  });
+});
+
+function pesquisarEventos() {
+  // Obtendo o valor do input de pesquisa
+  const inputValor = document.querySelector('.pesquisar').value;
+
+  // Obtendo o array de eventos do localStorage
+  const eventos = JSON.parse(localStorage.getItem('eventos'));
+
+  // Filtrando os eventos com base no título
+  const eventosFiltrados = eventos.filter(evento => evento.title === inputValor);
+
+  // Mostrando o conteúdo dos eventos filtrados no console
+  eventosFiltrados.forEach(evento => {
+    console.log(evento);
+  }); 
+
+  // Salvando os eventos filtrados no localStorage
+  localStorage.setItem('eventospesq', JSON.stringify(eventosFiltrados));
+
+  // Criando a estrutura HTML com o conteúdo dos objetos salvos no localStorage
+  const divPesq123 = document.querySelector('.pesq123');
+
+  eventosFiltrados.forEach(evento => {
+    const divEvento = document.createElement('div');
+    divEvento.classList.add('evento');
+
+    const divTitulo = document.createElement('div');
+    divTitulo.textContent = `Título: ${evento.title}`;
+
+    const divInfo = document.createElement('div');
+    divInfo.textContent = `Gênero: ${evento.genre}, Localização: ${evento.location}, Data: ${evento.date}`;
+
+    const divDesc = document.createElement('div');
+    divDesc.textContent = `Descrição: ${evento.description}`;
+
+    const imgElement = document.createElement('img');
+    imgElement.src = '/assets/img/sertanejo.jpg';
+
+    const buttonElement = document.createElement('button');
+    buttonElement.textContent = 'Ir para a página';
+    buttonElement.addEventListener('click', function() {
+      window.location.href = '/assets/html/paginaunica2.html';
+    });
+
+    divEvento.appendChild(divTitulo);
+    divEvento.appendChild(divInfo);
+    divEvento.appendChild(divDesc);
+    divEvento.appendChild(imgElement);
+    divEvento.appendChild(buttonElement);
+
+    divPesq123.appendChild(divEvento);
+  });
+}
+
+// Obtendo o elemento do botão de busca
+const btnSearch = document.querySelector('.btnsearch');
+
+// Definindo o evento de clique do botão
+btnSearch.addEventListener('click', pesquisarEventos);
+
+document.getElementById('limparLocalStorage').addEventListener('click', function() {
+      localStorage.removeItem('ticket');
+      localStorage.removeItem('eventos');
+      alert('Itens removidos do Local Storage com sucesso!');
+    });
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    // Obtendo os objetos do Local Storage
+var eventos = JSON.parse(localStorage.getItem('eventos'));
+
+// Obtendo todos os gêneros únicos dos objetos
+var generos = Array.from(new Set(eventos.map(obj => obj.genre)));
+
+// Criando o select
+var select = document.createElement('select');
+
+// Adicionando as opções ao select
+generos.forEach(function(genero) {
+  var option = document.createElement('option');
+  option.text = genero;
+  select.add(option);
+});
+
+// Criando o botão
+var botao = document.createElement('button');
+botao.textContent = 'V';
+
+// Adicionando evento de clique ao botão
+botao.addEventListener('click', function() {
+  var generoSelecionado = select.value;
+  var objetosSelecionados = eventos.filter(obj => obj.genre === generoSelecionado);
+  
+  // Selecionando a div com a classe "pesq123"
+  var divPesq123 = document.querySelector('.pesq123');
+  
+  // Limpando o conteúdo da div
+  divPesq123.innerHTML = '';
+  
+  objetosSelecionados.forEach(function(evento) {
+    // Criando a div de evento
+    var divEvento = document.createElement('div');
+    
+    // Criando o título
+    var titulo = document.createElement('h3');
+    titulo.textContent = evento.title;
+    
+    // Adicionando o título à div de evento
+    divEvento.appendChild(titulo);
+    
+    // Criando a imagem
+    var imagem = document.createElement('img');
+    imagem.src = '/assets/img/sertanejo.jpg';
+    imagem.width = 200;
+    imagem.height = 200;
+    
+    // Adicionando a imagem à div de evento
+    divEvento.appendChild(imagem);
+    
+    // Exibindo todos os elementos do evento na div
+    for (var key in evento) {
+      if (evento.hasOwnProperty(key) && key !== 'title') {
+        var valor = evento[key];
+        var elementoEvento = document.createElement('p');
+        elementoEvento.textContent = key + ': ' + valor;
+        divEvento.appendChild(elementoEvento);
+      }
+    }
+    
+    // Criando o botão de salvar
+var botaoSalvar = document.createElement('button');
+botaoSalvar.textContent = 'Salvar';
+
+// Adicionando evento de clique ao botão de salvar
+botaoSalvar.addEventListener('click', function() {
+  // Salvando o ID do evento no Local Storage
+  localStorage.setItem('eventoSelecionado', evento.id);
+  console.log('Evento salvo: ' + evento.id);
+  
+  // Redirecionando para a página desejada
+  window.location.href = '/assets/html/paginaunica2.html';
+});
+    
+    // Adicionando o botão de salvar à div de evento
+    divEvento.appendChild(botaoSalvar);
+    
+    // Adicionando a div de evento à div "pesq123"
+    divPesq123.appendChild(divEvento);
+  });
+});
+
+// Selecionando a div com a classe "stab"
+var divStab = document.querySelector('.stab');
+
+// Adicionando o select e o botão à div
+divStab.appendChild(select);
+divStab.appendChild(botao);
+// Obtendo os objetos do Local Storage
+var eventos = JSON.parse(localStorage.getItem('eventos'));
+
+// Criando o input de texto
+var inputTitulo = document.createElement('input');
+inputTitulo.type = 'text';
+inputTitulo.placeholder = 'Digite o título';
+
+// Criando o botão de pesquisar
+var botaoPesquisar = document.createElement('button');
+botaoPesquisar.textContent = '';
+
+// Adicionando evento de clique ao botão de pesquisar
+botaoPesquisar.addEventListener('click', function() {
+  var tituloSelecionado = inputTitulo.value;
+  var objetosSelecionados = eventos.filter(obj => obj.title === tituloSelecionado);
+  
+  // Selecionando a div com a classe "pesq123"
+  var divPesq123 = document.querySelector('.pesq123');
+  
+  // Limpando o conteúdo da div
+  divPesq123.innerHTML = '';
+  
+  objetosSelecionados.forEach(function(evento) {
+    // Criando a div de evento
+    var divEvento = document.createElement('div');
+    
+    // Criando o título
+    var titulo = document.createElement('h3');
+    titulo.textContent = evento.title;
+    
+    // Adicionando o título à div de evento
+    divEvento.appendChild(titulo);
+    
+    // Criando a imagem
+    var imagem = document.createElement('img');
+    imagem.src = '/assets/img/sertanejo.jpg';
+    imagem.width = 200;
+    imagem.height = 200;
+    
+    // Adicionando a imagem à div de evento
+    divEvento.appendChild(imagem);
+    
+    // Exibindo todos os elementos do evento na div
+    for (var key in evento) {
+      if (evento.hasOwnProperty(key) && key !== 'title') {
+        var valor = evento[key];
+        var elementoEvento = document.createElement('p');
+        elementoEvento.textContent = key + ': ' + valor;
+        divEvento.appendChild(elementoEvento);
+      }
+    }
+    
+    // Criando o botão de salvar
+var botaoSalvar = document.createElement('button');
+botaoSalvar.textContent = 'Salvar';
+
+// Adicionando evento de clique ao botão de salvar
+botaoSalvar.addEventListener('click', function() {
+  // Salvando o ID do evento no Local Storage
+  localStorage.setItem('eventoSelecionado', evento.id);
+  console.log('Evento salvo: ' + evento.id);
+  
+  // Redirecionando para a página desejada
+  window.location.href = '/assets/html/paginaunica2.html';
+});
+    
+    // Adicionando o botão de salvar à div de evento
+    divEvento.appendChild(botaoSalvar);
+    
+    // Adicionando a div de evento à div "pesq123"
+    divPesq123.appendChild(divEvento);
+  });
+});
+
+// Selecionando a div com a classe "stab"
+var divStab = document.querySelector('.stab');
+
+// Adicionando o input de texto e o botão à div
+divStab.appendChild(inputTitulo);
+divStab.appendChild(botaoPesquisar);
+    
+//aaaaaaaaaaaaaaa
+function carousel() {
+            const images = [
+                "/assets/img/sertanejo.jpg",
+                "/assets/img/mixed.jpeg.jpeg",
+                "/assets/img/clube-chelezinho-belo-horiz.jpg"
+            ];
+
+            let currentImageIndex = 0;
+            const imageElement = document.getElementById("carousel-image");
+
+            setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                imageElement.src = images[currentImageIndex];
+            }, 4000);
+        }
+</script>
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>E-Ticket</title>
+  <link href="/assets/css/css123124.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+			<img src="https://play-lh.googleusercontent.com/FlofO5QBo1Z8VPwvpMuyrAb1C3X1RRqANGRP-UWSBsYDb-hlJG49iE0ac4M-JVJwSzQ" alt="Logo">
+			E-Ticket
+		</div>
+		<div class="profile">
+      <a href="#">
+			<img src="https://static.todamateria.com.br/upload/ba/nd/bandeiradobrasil-cke.jpg?auto_optimize=low" alt="Foto de perfil">
+      </a>
+			Usuário
+		</div>
+	</header>
+
+	<div class="navigation">
+		<a href="#">Página de Eventos</a>
+		<a href="#">Página de Tickets</a>
+		<a href="#">Cadastro de Ticket</a>
+		<a href="#">Cadastro de Evento</a>
+	</div>
+
+  
+
+	<div class="formulario">
+  <h1>Pagamento</h1>
+  <form>
+    <label for="nome">Nome no Cartão:</label>
+    <input type="text" id="nome" pattern="[A-Za-z ]+" placeholder="Henrique Resende" required><br><br>
+
+    <label for="numero">Número do Cartão:</label>
+    <input type="text" id="numero" pattern="[0-9]{16}" placeholder="0000001111112222" maxlength="16" required><br><br>
+
+    <label for="validade">Data de Validade:</label>
+    <input type="text" id="validade" maxlength="5" placeholder="MM/AA" required><br><br>
+
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" pattern="[0-9]{3}" placeholder="888" maxlength="3" required><br><br>
+
+    <button type="button" onclick="pagar()">Pagar</button>
+    <button type="button" onclick="preencherCampos()">Preencher Campos</button><br><br>
+
+    <button type="button" onclick="salvarDados()">Salvar Dados</button>
+  </form>
+</div>
+<footer class="footer">
+	<p>&copy; 2023 E-Ticket. Todos os direitos reservados.</p>
+</footer>
+</body>
+
+<script>
+      
+    function salvarDados() {
+      var nome = document.getElementById('nome').value;
+      var numero = document.getElementById('numero').value;
+      var validade = document.getElementById('validade').value;
+      var cvv = document.getElementById('cvv').value;
+      var nomecerto = /^[A-Za-z\s]+$/.test(nome);
+      var numerocerto = /^\d+$/.test(numero);
+      var cvvcerto = /^\d+$/.test(cvv);
+      var validadecerta = /^\d{2}\/\d{2}$/.test(validade);
+
+      if (nome !== '' && numero.length == 16 && validade.length == 5 && cvv.length == 3 && nomecerto && numerocerto && cvvcerto && validadecerta) {
+
+    var dadosCartao = {
+      nome: nome,
+      numero: numero,
+      validade: validade,
+      cvv: cvv
+    };
+
+    var dadosCartaoJSON = JSON.stringify(dadosCartao);
+
+    localStorage.setItem('dados do Cartao', dadosCartaoJSON);
+
+    alert('Dados do cartão salvos com sucesso!');
+  } else {
+    alert('Os campos não foram preenchidos corretamente, tente novamente');
+  }
+}
+
+    function preencherCampos() {
+      var dadosCartaoJSON = localStorage.getItem('dados do Cartao');
+
+  if (dadosCartaoJSON) {
+
+    var dadosCartao = JSON.parse(dadosCartaoJSON);
+
+    document.getElementById('nome').value = dadosCartao.nome;
+    document.getElementById('numero').value = dadosCartao.numero;
+    document.getElementById('validade').value = dadosCartao.validade;
+    document.getElementById('cvv').value = dadosCartao.cvv;
+
+        alert('Campos preenchidos com os dados do cartão salvos anteriormente.');
+      } else {
+        alert('Não há dados de cartão salvos.');
+      }
+    }
+
+    function pagar() {
+      var nome = document.getElementById('nome').value;
+      var numero = document.getElementById('numero').value;
+      var validade = document.getElementById('validade').value;
+      var cvv = document.getElementById('cvv').value;
+      var nomecerto = /^[A-Za-z\s]+$/.test(nome);
+      var numerocerto = /^\d+$/.test(numero);
+      var cvvcerto = /^\d+$/.test(cvv);
+      var validadecerta = /^\d{2}\/\d{2}$/.test(validade);
+
+      if (nome !== '' && numero.length == 16 && validade.length == 5 && cvv.length == 3 && nomecerto && numerocerto && cvvcerto && validadecerta) {
+      alert('Pagamento efetuado com sucesso!\nNome do cartão: ' + nome + '\nNúmero do cartão: ' + numero + '\nData de validade: ' + validade);
+    }
+	else{
+		alert('Os campos não foram preenchidos corretamente, tente novamente');
+	}
+}
+
+  </script>
+
+</html>

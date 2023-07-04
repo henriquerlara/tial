@@ -1,0 +1,108 @@
+.cabeçalho {background-color:rgb(71, 63, 88);  font-family: 'Courier New', Courier, monospace; font-size: larger;font-weight: 700;color: #4d959f;}
+.cabeçalho button { width: 30%;color: #4d959f;background-image: radial-gradient(#473F58 85%, #3d3450)}
+.botao {display: inline; text-align: center; padding-bottom: 10px;padding-right: 10%;padding-left: 5%;}
+.corpo {display: block;width: 100%; height: 100%; background-color: blanchedalmond;}
+.container{width: 100%; position:relative}
+    .box  {position: absolute; text-align: center;background-color:rgb(241, 241, 241) ; bottom: 5%; left: 30%; padding: 10px;
+        
+    width: 40%;height: 1100px; box-shadow: 6px 6px 25px#322945; background-image: radial-gradient(#473F58 85%, #3d3450);font-family: 'Courier New', Courier, monospace;}
+    
+.container image {width: 100%;    }
+ .box h3 {height: 1%;}
+ .box  h4 {height: 5%; padding-top: 6%;}
+ .box   input {float: left; width: 100%; background-color: #312b3d}
+ .descrição h4 { height: 5%; padding-top: 6%;}
+ .descrição input {height: 250px;background-color: #312b3d; padding-bottom: 4%;}
+.rodape {  width: 100%; height: 250px; background-color:rgb(71, 63, 88) ;padding-top: 10px;  background-image: linear-gradient(#473F58 50%, #322945);}
+.caixa label { width:5%                             }
+.cabeçalho input {width: 50%; }
+.stab button{color: #4d959f; height: 17px; width: 40px;}
+.descrição button {margin-top: 35px; background-color:  #3d3450; 
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 16px;
+}
+.tituloevento { background-color: #4d959f;}
+.info {color: #4d959f;display: inline-block;vertical-align: top}
+.desc{color: #4d959f;display: inline-block;vertical-align: top  }
+
+.tituloindiv{color: #d5d5d5;}
+.descindiv
+.infoindiv 
+.imgindiv{ height: 500px;
+    width: 230px;}
+
+.caixadeevento{color :#3d3450;left: 40%;display: block; border: 1px solid #d5d5d5; width: 100%;
+    }
+   .introduction body {
+        background-color: #322945;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+    }
+
+    .introduction  h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .introduction p {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 18px;
+    }
+
+    .introduction  .button {
+        display: inline-block;
+        margin-top: 50px;
+        padding: 12px 24px;
+        background-color: #4d959f;
+        color: #ffffff;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .introduction {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .carousel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+        margin-top: 50px;
+        overflow: hidden;
+    }
+
+    .carousel img {
+        width: 500px;
+        height: 500px;
+        object-fit: cover;
+    }
+
+    .caixadeevento button{color: aliceblue;width: 100%;} 
+.caixadeevento img {
+    display: inline-block;
+   height: 230px;
+   width: 230px;
+
+  }
+  .box3  {position: absolute; text-align: center;background-color:rgb(241, 241, 241) ; top: 12%; left: 30%; padding: 10px;
+        
+    width: 40%;height: 1200px; box-shadow: 6px 6px 25px#322945; background-image: radial-gradient(#473F58 85%, #3d3450);font-family: 'Courier New', Courier, monospace;}
+    .ticketsdiv {height: px10; text-align: center; background-color: #150f22;}
+@media screen and (max-width: 600px)
+ {
+     
+        .container image {  display: none;}
+        .box {position:block;}
+  }
+  .qrcode{display: block;width: 100%; align-items: center;}
+  .logar  {display: inline-block; width: 450px;}

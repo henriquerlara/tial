@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href= ..//css/estilo314.CSS media="screen" />
+</head>
+<body>
+    <div  class="cabeçalho">
+        <img src="../img/logo (1).png" width="130" height="80"  >
+        
+        
+        <a href="../../index.html"><button>Eventos</button></a>
+        <a href="../html/Cadastrardeevento.html"><button>cadastrar eventos</button></a>
+        <a href="../html/cadastroticket.html"><button>tickets</button></a>
+            
+            <div class ="container" style="width:100%;height: 1200px;">
+                <img src="../img/fundo.png"  width="100%" height="100%"  >
+            <div class="box">
+                <img src="../img/sertanejo.jpg"  width="100%" height="400px"  >
+
+                <div class="contevento"> </div>
+                
+                <div class="ticketsdiv">
+
+tickets
+
+                </div>
+
+                <div class="ticketss">
+                    tickets
+                </div>
+                
+            </div>
+             
+            </div> 
+        
+            <div class="rodape">
+        
+                <button id="limparLocalStorage">Limpar Local Storage</button>
+        
+            </div>
+</body>
+</html>
+<script>
+// Verifica se o navegador suporta o Local Storage
+if (typeof(Storage) !== "undefined") {
+  // Verifica se a chave 'eventoSelecionado' existe no Local Storage
+  if (localStorage.getItem('eventoSelecionado')) {
+    // Obtém o número dentro da chave 'eventoSelecionado'
+    var eventoSelecionado = localStorage.getItem('eventoSelecionado');
+
+    // Obtém o conteúdo do Local Storage com a chave 'eventos'
+    var eventos = JSON.parse(localStorage.getItem('eventos'));
+
+    // Procura pelo evento com o mesmo ID
+    var eventoEncontrado = null;
+    for (var i = 0; i < eventos.length; i++) {
+      if (eventos[i].id === eventoSelecionado) {
+        eventoEncontrado = eventos[i];
+        break;
+      }
+    }
+
+    // Verifica se o evento foi encontrado
+    if (eventoEncontrado) {
+      // Exibe os elementos do evento na div com a classe 'contevento'
+      var conteventoDiv = document.querySelector('.contevento');
+      conteventoDiv.innerHTML = `
+        <p>Title: ${eventoEncontrado.title}</p>
+        <p>Date: ${eventoEncontrado.date}</p>
+        <p>Genre: ${eventoEncontrado.genre}</p>
+        <p>Location: ${eventoEncontrado.location}</p>
+        <p>Description: ${eventoEncontrado.description}</p>
+      `;
+    } else {
+      console.log('Evento não encontrado!');
+    }
+  } else {
+    console.log('Chave "eventoSelecionado" não encontrada no Local Storage!');
+  }
+} else {
+  console.log('Navegador não suporta o Local Storage!');
+}
+
+window.addEventListener('load', function() {
+  // Verificar se o localStorage está disponível no navegador
+  if (typeof localStorage !== 'undefined') {
+    // Obter o número salvo com a chave 'eventoSelecionado'
+    var eventoSelecionado = localStorage.getItem('eventoSelecionado');
+
+    // Verificar se o número foi encontrado
+    if (eventoSelecionado !== null) {
+      // Obter o array de objetos com a chave 'tickets'
+      var tickets = JSON.parse(localStorage.getItem('tickets'));
+
+      // Verificar se o array de tickets foi encontrado
+      if (tickets !== null && Array.isArray(tickets)) {
+        // Iterar sobre cada objeto no array de tickets
+        tickets.forEach(function(ticket) {
+          // Verificar se o id do ticket é igual ao evento selecionado
+          if (ticket.id === eventoSelecionado) {
+            // Criar uma nova div para exibir o ticket
+            var ticketDiv = document.createElement('div');
+            ticketDiv.classList.add('ticket');
+
+            // Criar elementos para exibir quantity e price
+            var quantityElement = document.createElement('span');
+            quantityElement.textContent = 'Quantity: ' + ticket.quantity;
+
+            var priceElement = document.createElement('span');
+            priceElement.textContent = 'Price: ' + ticket.price;
+
+            // Criar o botão de redirecionamento
+            var button = document.createElement('button');
+            button.textContent = 'Comprar Ticket';
+            button.addEventListener('click', function() {
+              window.location.href = '../html/paginadeticket.html';
+            });
+
+            // Adicionar os elementos à div do ticket
+            ticketDiv.appendChild(quantityElement);
+            ticketDiv.appendChild(priceElement);
+            ticketDiv.appendChild(button);
+
+            // Adicionar a div do ticket à div com a classe 'ticketss'
+            var ticketsContainer = document.querySelector('.ticketss');
+            if (ticketsContainer) {
+              ticketsContainer.appendChild(ticketDiv);
+            }
+          }
+        });
+      }
+    }
+  }
+});
+
+ 
+
+
+
+
+
+
+
+
+    
+</script>
